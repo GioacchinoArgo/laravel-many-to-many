@@ -21,9 +21,18 @@
             <img src="{{ $project->printImage() }}" alt="{{ $project->title }}" class="me-2 float-start h-25 w-25">
         @endif
         <p>{{ $project->content}}</p>
-        <div>
-            <strong>Creato il:</strong> {{ $project->created_at }}
-            <strong class="ms-4">Ultima modifica:</strong> {{ $project->updated_at }}
+        <div class="d-flex justify-content-between">
+            <div>
+                <strong>Creato il:</strong> {{ $project->created_at }}
+                <strong class="ms-4">Ultima modifica:</strong> {{ $project->updated_at }}
+            </div>
+            <div>
+                @forelse ($project->technologies as $technology)
+                    <span class="badge rounded-pill text-bg-{{ $technology->color }}">{{ $technology->label }}</span>
+                @empty
+                    Nessuna
+                @endforelse
+            </div>
         </div>
     </div>
     <hr>

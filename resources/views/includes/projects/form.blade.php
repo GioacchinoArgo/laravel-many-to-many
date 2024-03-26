@@ -61,19 +61,18 @@
                 </div>
             @enderror
         </div>
-
         <div class="col-5">
             <div class="mb-3">
                 <label for="image" class="form-label">Immagine</label>
                 <input type="file" class="form-control @error('image') is-invalid @elseif(old('image', '')) is-valid @enderror" name="image" id="image" placeholder="http://... o https://..." value="{{ old('image', $project->image)}}">
                 @error('image')
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
-                        @else
-                        <div class="form-text">
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @else
+                    <div class="form-text">
                             carica un file immagine
-                        </div>
+                    </div>
                 @enderror
             </div>
         </div>
@@ -85,6 +84,24 @@
                     : 'https://marcolanci.it/boolean/assets/placeholder.png' }}" 
                 class="img-fluid" alt="{{ $project->image ? $project->title : 'preview'}}" id="preview">
             </div>
+        </div>
+
+        <div class="col-8">
+            <div class="form-group @error('technologies') is-invalid @enderror">
+                <p class="mb-0">Seleziona la Tecnologia</p>
+                @foreach ($technologies as $technology)
+                    <div class="form-check form-check-inline">
+                        <input role="button" class="form-check-input" type="checkbox" name="technologies[]" id="{{ "tech-$technology->id" }}" value="{{ $technology->id }}"
+                            @if(in_array($technology->id, old('technologies', $prev_technologies ?? []))) checked @endif>
+                        <label class="form-check-label" for="{{ "tech-$technology->id" }}">{{ $technology->label }}</label>
+                    </div>
+                @endforeach
+            </div>
+            @error('technologies')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
     <hr>

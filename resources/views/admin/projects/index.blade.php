@@ -14,6 +14,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Titolo</th>
                 <th scope="col">Tipologia</th>
+                <th scope="col">Tecnologia</th>
                 <th scope="col">Slug</th>
                 <th scope="col">Creato il</th>
                 <th scope="col">Ultima modifica</th>
@@ -42,6 +43,13 @@
                         Nessuna 
                     @endif
                 </td>
+                <td>
+                    @forelse ($project->technologies as $technology)
+                        <span class="badge rounded-pill text-bg-{{ $technology->color }}">{{ $technology->label }}</span>
+                    @empty
+                        Nessuna
+                    @endforelse
+                </td>
                 <td>{{$project->slug}}</td>
                 <td>{{$project->created_at}}</td>
                 <td>{{$project->updated_at}}</td>
@@ -66,7 +74,7 @@
             </tr>
         @empty 
             <tr>
-                <td colspan="7">
+                <td colspan="8">
                     <h3 class="text-center">Non ci sono progetti</h3>
                 </td>
             </tr>
